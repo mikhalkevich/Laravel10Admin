@@ -9,4 +9,7 @@ class CatalogOnlinerLink extends Model
 {
     use HasFactory;
     public $fillable = ['catalog_onliner_id', 'name', 'url','attr_href'];
+    public function catalog(){
+        return $this->belongsTo(CatalogOnliner::class);
+    }
 }

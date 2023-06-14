@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CatalogOnliner;
 use Illuminate\Http\Request;
 use App\Models\Catalog;
 use App\Parser\CatalogOnlinerParse;
@@ -71,10 +72,28 @@ class CatalogController extends Controller
         return redirect()->back();
     }
 
+    public function getUrl($url)
+    {
+        $catalog = Catalog::where('url', $url)->first();
+        return view('catalog', compact('catalog'));
+    }
+
     public function getOnliner()
     {
-$parse = new CatalogOnlinerParse;
+        $parse = new CatalogOnlinerParse;
         $parse->getParse('https://catalog.onliner.by/');
         return view('axios.catalog');
+    }
+
+    public function getCatalogOnliner()
+    {
+        $catalogs = CatalogOnliner::all();
+        return view('admin.catalog_onliner', compact('catalogs'));
+    }
+
+    public function getData($id = null)
+    {
+        $catalogs_onliner = CatalogOnliner::where('data_id', $id)->get();
+        return view('catalog_data', compact('catalogs_onliner'));
     }
 }

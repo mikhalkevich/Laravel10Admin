@@ -9,4 +9,7 @@ class CatalogOnliner extends Model
 {
     use HasFactory;
     public $fillable = ['data_id', 'name'];
+    public function links(){
+        return $this->hasMany(CatalogOnlinerLink::class);
+    }
 }

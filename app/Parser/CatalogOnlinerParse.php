@@ -43,6 +43,7 @@ class CatalogOnlinerParse implements ParseContract
                         ]);
                     }
                 });
+
             });
         });
     }
