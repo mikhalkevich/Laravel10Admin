@@ -19,6 +19,6 @@ class BaseServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('includes.sidebar','App\Providers\ViewComposers\BaseComposer');
+        View::composer(['includes.sidebar','includes.sidebar_admin'],'App\Providers\ViewComposers\BaseComposer');
     }
 }

@@ -37,9 +37,18 @@ Route::middleware('admin')->group(function () {
     });
 });
 Route::get('catalog/{url}', [Controllers\CatalogController::class, 'getUrl']);
+Route::get('catalog/{catalog}/subcatalogs', [Controllers\CatalogController::class, 'subcatalogs']);
+
 Route::get('catalog_data/{id}', [Controllers\CatalogController::class, 'getData']);
-Route::prefix('ajax')->group(function(){
-    Route::post('catalog/onliner',[Controllers\CatalogController::class,'getOnliner']);
+Route::get('catalog_book/{id}', [Controllers\BookController::class, 'getCatalogBook']);
+Route::post('catalog_book/{id}/book_add', [Controllers\BookController::class, 'postBook']);
+Route::get('book/{book}', [Controllers\BookController::class, 'getOne']);
+Route::get('book/{book}/find_cover', [Controllers\BookController::class, 'findCover']);
+Route::get('book/{book}/find_cover_original', [Controllers\BookController::class, 'findCoverOriginal']);
+Route::get('book/{book}/get_book_cover', [Controllers\BookController::class, 'getBookCover']);
+Route::get('catalog_catalog/{data_id}/{id}', [Controllers\CatalogController::class, 'getCatalogCatalog']);
+Route::prefix('ajax')->group(function () {
+    Route::post('catalog/onliner', [Controllers\CatalogController::class, 'getOnliner']);
 });
 
 require __DIR__ . '/auth.php';

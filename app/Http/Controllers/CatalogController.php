@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CatalogBook;
 use App\Models\CatalogOnliner;
+use App\Models\CatalogOnlinerLink;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Catalog;
+use App\Parser\ProductOnlinerParse;
+use Carbon\Carbon;
+
 use App\Parser\CatalogOnlinerParse;
 
 class CatalogController extends Controller
@@ -94,6 +100,28 @@ class CatalogController extends Controller
     public function getData($id = null)
     {
         $catalogs_onliner = CatalogOnliner::where('data_id', $id)->get();
-        return view('catalog_data', compact('catalogs_onliner'));
+        return view('catalog_data', compact('catalogs_onliner', 'id'));
+    }
+
+    public function getCatalogCatalog($data_id = null, $id = null)
+    {
+
+        $catalogs_onliner = CatalogOnliner::where('data_id', $data_id)->get();
+        $catalog_link = CatalogOnlinerLink::find($id);
+        $catalog_name = config('catalog.onliner.' . $data_id);
+        $product_test = Product::whereDate('created_at', Carbon::today())->where('catalog_onliner_link_id', $catalog_link->id)->first();
+        if (!$product_test) {
+            $parse_obj = (new ProductOnlinerParse())->getParse($catalog_link);
+        }
+        $products = Product::where('catalog_onliner_link_id', $catalog_link->id)->get();
+
+        return view('catalog_catalog', compact('catalogs_onliner', 'catalog_link', 'id', 'data_id', 'catalog_name', 'products'));
+    }
+
+    public function subcatalogs($catalog_book)
+    {
+        $subcatalogs = CatalogBook::where('parent_id', $catalog_book)->get();
+
+        return view('helpers.subcatalog', compact('subcatalogs'));
     }
 }

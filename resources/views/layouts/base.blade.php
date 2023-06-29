@@ -19,16 +19,19 @@
     @stack('scripts')
 </head>
 <body>
-<div id="app"
-    class="flex h-screen bg-gray-50 dark:bg-gray-900"
-    :class="{ 'overflow-hidden': isSideMenuOpen }"
->
+<div id="app">
 
-    <div class="flex flex-col flex-1 w-full">
-        <main class="h-full overflow-y-auto">
             {{ $slot }}
-        </main>
-    </div>
+    <footer class="w-full bg-white p-8">
+
+        <hr class="my-8 border-blue-gray-50" />
+        <p class="block text-center font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
+            <a href="#">Links</a>
+        </p>
+        <p class="block text-center font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
+           2023 © Mikhalkevich
+        </p>
+    </footer>
 </div>
 </body>
 </html>

@@ -14,7 +14,7 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 body: ['Nutito']
-            },
+            }
         },
     },
 

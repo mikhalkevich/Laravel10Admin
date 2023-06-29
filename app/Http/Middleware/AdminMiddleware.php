@@ -17,7 +17,7 @@ class AdminMiddleware
     {
         if(optional($request->user())->isAdmin == 0){
            return redirect('/');
-        };
+        }
         return $next($request);
     }
 }

@@ -1,14 +1,24 @@
 <x-base-layout>
-    <div class="container grid px-6 mx-auto">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Каталог
-        </h2>
+    @include('includes.sidebar', ['catalog_link_onliner'=>['name'=>'Товары', 'href'=>'catalog/onliner'], 'catalog_onliner_id'=>$id])
+    <div class="p-4">
+        <div class="flex">
+            <div class="flex-2 h-screen overflow-x-auto">
+                @foreach($catalogs_onliner as $one)
+                    <div x-data="{ open: false}" class="border-2 bg-teal-50">
+                        <button @click="open = ! open" class="p-1">{{$one->name}}</button>
+                        @foreach($one->links as $link)
+                            <div x-show="open">
+                                <a href="{{asset('catalog_catalog/'.$id.'/'.$link->id)}}"
+                                   class="text-amber-950 p-2">{{$link->name}}</a>
+                                <!--https://catalog.api.onliner.by/search/ <br />-->
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+            <div class="flex-4">
+                тут контент
+            </div>
+        </div>
     </div>
-    @foreach($catalogs_onliner as $one)
-        <h2>{{$one->name}}</h2>
-        @foreach($one->links as $link)
-            <b>{{$link->name}}</b>
-            https://catalog.api.onliner.by/search/{{$link->url}} <br />
-        @endforeach
-    @endforeach
 </x-base-layout>
